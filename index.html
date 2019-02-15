@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timer</title>
+</head>
+<body>
+
+<div class="timer-1"></div>
+<div class="timer-2"></div>
+<div class="timer-3"></div>
+
+<script type="text/javascript">
+    var timer = function (el, seconds, callback) {
+        if (isNaN(seconds)) {
+            return console.error('invalid seconds:', seconds);
+        }
+
+        var ms = seconds * 1000;
+        var delay = 10;
+
+        var interval = setInterval(function () {
+            el.innerHTML = (ms / 1000).toFixed(3);
+
+            ms = ms - delay;
+
+            if (0 === ms) {
+                clearInterval(interval);
+                callback && callback(el);
+            }
+        }, delay);
+    };
+</script>
+
+<script type="text/javascript">
+    new timer(document.getElementsByClassName('timer-1')[0], 5, function (el) {
+        el.innerHTML = '1st is done';
+    });
+
+    new timer(document.getElementsByClassName('timer-2')[0], 10, function (el) {
+        el.innerHTML = '2nd is done';
+    });
+
+    new timer(document.getElementsByClassName('timer-3')[0], 15, function (el) {
+        el.innerHTML = '3rd is done';
+    });
+</script>
+</body>
+</html>
